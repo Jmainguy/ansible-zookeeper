@@ -1,0 +1,12 @@
+---
+
+- name: Install
+  hosts: all
+  roles:
+    - install
+
+- name: ZooKeeper
+  hosts: zoo
+  roles:
+    - zoo
+

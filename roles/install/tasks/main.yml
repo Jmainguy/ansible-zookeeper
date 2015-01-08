@@ -1,0 +1,16 @@
+---
+
+- name: Update rpm's
+  yum: name=* state=latest
+
+- name: Install Java
+  yum: name=java state=present
+
+- name: Create dir
+  file: path=/opt/{{ group_name }} state=directory
+  register: dir_create
+
+- name: Unarchive Files
+  unarchive: src={{ tar_file }} dest=/opt/{{ group_name }}
+  when: dir_create.changed
+

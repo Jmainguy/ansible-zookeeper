@@ -1,0 +1,15 @@
+[Unit]
+Description=Zookeeper Instance
+After=syslog.target
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/opt/zookeeper/zookeeper
+ExecStart=/bin/bash ./bin/zkServer.sh start ./conf/zoo.cfg
+ExecStop=/bin/bash ./bin/zkServer.sh stop ./conf/zoo.cfg
+TimeoutSec=300
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

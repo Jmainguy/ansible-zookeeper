@@ -1,0 +1,20 @@
+---
+
+- name: Symlink so we have a pretty name
+  file: src=/opt/zookeeper/zookeeper-3.4.6 dest=/opt/zookeeper/zookeeper state=link
+
+- name: Copy zoo.cfg
+  template: src=zoo.cfg dest=/opt/zookeeper/zookeeper/conf/zoo.cfg
+
+
+- name: Ensure data dir exists
+  file: path=/var/lib/zookeeperdata/{{ id }} state=directory
+
+- name: Copy myid
+  template: src=myid dest=/var/lib/zookeeperdata/{{ id }}/myid
+
+- name: Copy zookeeper systemd service file
+  copy: src=zookeeper.service dest=/usr/lib/systemd/system/zookeeper.service
+
+- name: Enable service
+  service: name=zookeeper state=started enabled=yes
